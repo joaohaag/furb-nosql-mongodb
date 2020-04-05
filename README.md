@@ -20,6 +20,7 @@ Comando
 > db.pets.findOne()
 
 Resposta
+
 {
         "_id" : ObjectId("5e8a1b135f61e90828391922"),
         "name" : "Mike",
@@ -32,6 +33,7 @@ Comando
 > db.pets.find({"name" : "Kilha"}, {"_id":1});
 
 Resposta
+
 { "_id" : ObjectId("5e8a1b235f61e90828391924") }
 
 5. Faça uma busca pelo ID e traga o Hamster Mike 
@@ -40,12 +42,14 @@ Comando
 > db.pets.find({"name" : "Mike", species:"Hamster"}, {"_id":1});
 
 Resposta
+
 { "_id" : ObjectId("5e8a1b135f61e90828391922") }
 
 Comando
 > db.pets.find({"_id" : ObjectId("5e8a1b135f61e90828391922")});
 
 Resposta
+
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 
 
@@ -55,6 +59,7 @@ Comando
 > db.pets.find({species:"Hamster"});
 
 Resposta
+
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a1b7d5f61e90828391929"), "name" : "Frodo", "species" : "Hamster" }
 
@@ -64,6 +69,7 @@ Comando
 > db.pets.find({"name" : "Mike"});
 
 Resposta
+
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a1b2d5f61e90828391925"), "name" : "Mike", "species" : "Cachorro" }
 
@@ -73,6 +79,7 @@ Comando
 > db.pets.find({"name" : "Mike", species:"Cachorro"});
 
 Resposta
+
 { "_id" : ObjectId("5e8a1b2d5f61e90828391925"), "name" : "Mike", "species" : "Cachorro" }
 
 
