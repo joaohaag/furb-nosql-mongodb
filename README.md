@@ -18,6 +18,7 @@ db.pets.find().count();
 
 Comando
 > db.pets.findOne()
+
 Resposta
 {
         "_id" : ObjectId("5e8a1b135f61e90828391922"),
