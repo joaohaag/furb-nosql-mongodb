@@ -16,6 +16,7 @@ db.pets.find().count();
 3. Retorne apenas um elemento o método prático possível 
 
 > db.pets.findOne()
+
 {
         "_id" : ObjectId("5e8a1b135f61e90828391922"),
         "name" : "Mike",
@@ -25,14 +26,19 @@ db.pets.find().count();
 4. Identifique o ID para o Gato Kilha. 
 
 > db.pets.find({"name" : "Kilha"}, {"_id":1});
+
 { "_id" : ObjectId("5e8a1b235f61e90828391924") }
 
 5. Faça uma busca pelo ID e traga o Hamster Mike 
 
 > db.pets.find({"name" : "Mike", species:"Hamster"}, {"_id":1});
+
 { "_id" : ObjectId("5e8a1b135f61e90828391922") }
+
 > db.pets.find({"_id" : ObjectId("5e8a1b135f61e90828391922")});
+
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
+
 
 6. Use o find para trazer todos os Hamster
 
