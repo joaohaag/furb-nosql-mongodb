@@ -138,6 +138,7 @@ Resposta
 Type "it" for more
 
 4. Identifique quantas pessoas tem gatos, quantas tem cachorro e quantas não tem nenhum dos dois 
+
 Gatos
 > db.italians.find({cat: {$exists: true}}).count()
 5976
@@ -163,12 +164,55 @@ Nem cachorro nem gato
 
 8. Liste todas as pessoas mais novas que seus respectivos gatos. 
 
+> db.italians.find({ $and: [ { cat: { $exists: true }}, { $where: "this.age < this.cat.age" } ] },{"firstname":1,"age": 1, "cat.age":1})
+{ "_id" : ObjectId("5e8a31712c71b99c0f203e3c"), "firstname" : "Andrea", "age" : 5, "cat" : { "age" : 7 } }
+{ "_id" : ObjectId("5e8a31712c71b99c0f203e3f"), "firstname" : "Alessandra", "age" : 1, "cat" : { "age" : 7 } }
+{ "_id" : ObjectId("5e8a31712c71b99c0f203e6d"), "firstname" : "Patrizia", "age" : 3, "cat" : { "age" : 10 } }
+{ "_id" : ObjectId("5e8a31712c71b99c0f203e7b"), "firstname" : "Vincenzo", "age" : 13, "cat" : { "age" : 17 } }
+{ "_id" : ObjectId("5e8a31712c71b99c0f203e88"), "firstname" : "Barbara", "age" : 8, "cat" : { "age" : 11 } }
+{ "_id" : ObjectId("5e8a31712c71b99c0f203ea0"), "firstname" : "Daniela", "age" : 5, "cat" : { "age" : 12 } }
+{ "_id" : ObjectId("5e8a31712c71b99c0f203ea7"), "firstname" : "Pasquale", "age" : 4, "cat" : { "age" : 12 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203eb6"), "firstname" : "Maria", "age" : 4, "cat" : { "age" : 9 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203eb7"), "firstname" : "Emanuele", "age" : 8, "cat" : { "age" : 15 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203ec6"), "firstname" : "Manuela", "age" : 1, "cat" : { "age" : 6 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203ef8"), "firstname" : "Cristina", "age" : 2, "cat" : { "age" : 6 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f02"), "firstname" : "Filipo", "age" : 8, "cat" : { "age" : 11 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f0a"), "firstname" : "Lorenzo", "age" : 2, "cat" : { "age" : 13 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f11"), "firstname" : "Simone", "age" : 2, "cat" : { "age" : 10 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f34"), "firstname" : "Nicola", "age" : 1, "cat" : { "age" : 3 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f3d"), "firstname" : "Luca", "age" : 3, "cat" : { "age" : 17 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f41"), "firstname" : "Michele", "age" : 1, "cat" : { "age" : 8 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f50"), "firstname" : "Alberto", "age" : 2, "cat" : { "age" : 5 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f56"), "firstname" : "Giuseppe", "age" : 0, "cat" : { "age" : 3 } }
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f66"), "firstname" : "Paola", "age" : 8, "cat" : { "age" : 13 } }
 
 9. Liste as pessoas que tem o mesmo nome que seu bichano (gatou ou cachorro) 
 
 
-10. Projete apenas o nome e sobrenome das pessoas com tipo de sangue de fator RH negativo 
+10. Projete apenas o nome e sobrenome das pessoas com tipo de sangue de fator RH negativo
 
+> db.italians.find({"bloodType" : /-/}, {"firstname": 1, "surname": 1, "bloodType" : 1, "_id":0})
+
+{ "firstname" : "Lucia", "surname" : "Caputo", "bloodType" : "A-" }
+{ "firstname" : "Emanuele", "surname" : "Barone", "bloodType" : "AB-" }
+{ "firstname" : "Dario", "surname" : "Costatini", "bloodType" : "A-" }
+{ "firstname" : "Alessandro", "surname" : "Montanari", "bloodType" : "AB-" }
+{ "firstname" : "Michela", "surname" : "Farina", "bloodType" : "A-" }
+{ "firstname" : "Valeira", "surname" : "Giuliani", "bloodType" : "A-" }
+{ "firstname" : "Gianluca", "surname" : "Marchetti", "bloodType" : "AB-" }
+{ "firstname" : "Fabio", "surname" : "Galli", "bloodType" : "B-" }
+{ "firstname" : "Silvia", "surname" : "Gatti", "bloodType" : "AB-" }
+{ "firstname" : "Fabrizio", "surname" : "Morelli", "bloodType" : "AB-" }
+{ "firstname" : "Gianni", "surname" : "Longo", "bloodType" : "AB-" }
+{ "firstname" : "Emanuela", "surname" : "Montanari", "bloodType" : "AB-" }
+{ "firstname" : "Simona", "surname" : "De Angelis", "bloodType" : "A-" }
+{ "firstname" : "Andrea", "surname" : "Orlando", "bloodType" : "A-" }
+{ "firstname" : "Alex", "surname" : "Testa", "bloodType" : "O-" }
+{ "firstname" : "Carlo", "surname" : "Battaglia", "bloodType" : "AB-" }
+{ "firstname" : "Enzo ", "surname" : "Testa", "bloodType" : "O-" }
+{ "firstname" : "Elisabetta", "surname" : "Palumbo", "bloodType" : "B-" }
+{ "firstname" : "Andrea", "surname" : "Conti", "bloodType" : "B-" }
+{ "firstname" : "Giuseppe", "surname" : "Montanari", "bloodType" : "O-" }
 
 11. Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo (ObjectId) 
 
@@ -198,3 +242,16 @@ Nem cachorro nem gato
 
 
 20. Procure pessoas que gosta de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e  menos de 60 anos. 
+
+Exercício 3 - Stockbrokers
+
+1. Liste as ações com profit acima de 0.5 (limite a 10 o resultado)
+2. Liste as ações com perdas (limite a 10 novamente)
+3. Liste as 10 ações mais rentáveis
+4. Qual foi o setor mais rentável?
+5. Ordene as ações pelo profit e usando um cursor, liste as ações.
+6. Renomeie o campo “Profit Margin” para apenas “profit”.
+7. Agora liste apenas a empresa e seu respectivo resultado
+8. Analise as ações. É uma bola de cristal na sua mão... Quais as três ações
+você investiria?
+9. Liste as ações agrupadas por setor
