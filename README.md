@@ -5,9 +5,9 @@ Exercício 1- Aquecendo com os pets
 1.Adicione outro Peixe e um Hamster com nome Frodo
 
 > db.pets.insert({name:"Frodo",species:"Peixe"})
-WriteResult({ "nInserted" : 1 })
+
 > db.pets.insert({name:"Frodo",species:"Hamster"})
-WriteResult({ "nInserted" : 1 })
+
 
 2. Faça uma contagem dos pets na coleção 
 
