@@ -4,18 +4,21 @@ Exercício 1- Aquecendo com os pets
 
 1.Adicione outro Peixe e um Hamster com nome Frodo
 
+Comando
 > db.pets.insert({name:"Frodo",species:"Peixe"})
-
 > db.pets.insert({name:"Frodo",species:"Hamster"})
 
 
 2. Faça uma contagem dos pets na coleção 
 
+Comando
 db.pets.find().count();
 
 3. Retorne apenas um elemento o método prático possível 
 
+Comando
 > db.pets.findOne()
+Resposta
 {
         "_id" : ObjectId("5e8a1b135f61e90828391922"),
         "name" : "Mike",
@@ -24,33 +27,51 @@ db.pets.find().count();
 
 4. Identifique o ID para o Gato Kilha. 
 
+Comando
 > db.pets.find({"name" : "Kilha"}, {"_id":1});
+
+Resposta
 { "_id" : ObjectId("5e8a1b235f61e90828391924") }
 
 5. Faça uma busca pelo ID e traga o Hamster Mike 
 
+Comando
 > db.pets.find({"name" : "Mike", species:"Hamster"}, {"_id":1});
+
+Resposta
 { "_id" : ObjectId("5e8a1b135f61e90828391922") }
 
+Comando
 > db.pets.find({"_id" : ObjectId("5e8a1b135f61e90828391922")});
+
+Resposta
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 
 
 6. Use o find para trazer todos os Hamster
 
+Comando
 > db.pets.find({species:"Hamster"});
+
+Resposta
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a1b7d5f61e90828391929"), "name" : "Frodo", "species" : "Hamster" }
 
 7. Use o find para listar todos os pets com nome Mike
 
+Comando
 > db.pets.find({"name" : "Mike"});
+
+Resposta
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a1b2d5f61e90828391925"), "name" : "Mike", "species" : "Cachorro" }
 
 8. Liste apenas o documento que é um Cachorro chamado Mike 
 
+Comando
 > db.pets.find({"name" : "Mike", species:"Cachorro"});
+
+Resposta
 { "_id" : ObjectId("5e8a1b2d5f61e90828391925"), "name" : "Mike", "species" : "Cachorro" }
 
 
