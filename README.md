@@ -6,13 +6,24 @@ Exercício 1- Aquecendo com os pets
 
 Comando
 > db.pets.insert({name:"Frodo",species:"Peixe"})
+
+Resposta
+WriteResult({ "nInserted" : 1 })
+
+Comando
 > db.pets.insert({name:"Frodo",species:"Hamster"})
+
+Resposta
+WriteResult({ "nInserted" : 1 })
 
 
 2. Faça uma contagem dos pets na coleção 
 
 Comando
 db.pets.find().count();
+
+Resposta
+8
 
 3. Retorne apenas um elemento o método prático possível 
 
