@@ -240,6 +240,7 @@ db.italians.find({ $or: [{ $and: [ { dog: { $exists: true}}, { $where: "this.fir
 
 > db.italians.find({},{"dog.name":1, "dog.age": 1, "cat.name":1, "cat.age" : 1, "_id" : 0})
 
+
 { "cat" : { "name" : "Emanuele", "age" : 14 } }
 { "cat" : { "name" : "Enzo ", "age" : 1 }, "dog" : { "name" : "Cristina", "age" : 10 } }
 { "dog" : { "name" : "Elisabetta", "age" : 13 } }
@@ -264,6 +265,8 @@ db.italians.find({ $or: [{ $and: [ { dog: { $exists: true}}, { $where: "this.fir
 12. Quais são as 5 pessoas mais velhas com sobrenome Rossi? 
 
 > db.italians.find({"surname": "Rossi"}).pretty().limit(5).sort({age : -1})
+
+
 {
         "_id" : ObjectId("5e8a31892c71b99c0f205c31"),
         "firstname" : "Mauro",
