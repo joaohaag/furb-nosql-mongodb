@@ -507,12 +507,69 @@ WriteResult({ "nRemoved" : 87 })
 
 17. Utilizando o framework agregate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro. 
 
+> db.italians.aggregate([
+... {$match: { $or: [ {cat: { $exists: 1}}, {dog: { $exists: 1}} ] }},
+... {$match: {mother: { $exists: 1}}},
+... {$project: {firstname: 1, mother: 1, isEqual: { $cmp: ["$firstname","$mother.firstname"]}}},
+... {$match: {isEqual : 0}}
+... ])
+
+
+{ "_id" : ObjectId("5e8a31722c71b99c0f203f6e"), "firstname" : "Daniele", "mother" : { "firstname" : "Daniele", "surname" : "Coppola", "age" : 104 }, "isEqual" : 0 }
+{ "_id" : ObjectId("5e8a31762c71b99c0f20439c"), "firstname" : "Dario", "mother" : { "firstname" : "Dario", "surname" : "Amato", "age" : 98 }, "isEqual" : 0 }
+{ "_id" : ObjectId("5e8a317a2c71b99c0f204871"), "firstname" : "Alessia", "mother" : { "firstname" : "Alessia", "surname" : "Cattaneo", "age" : 100 }, "isEqual" : 0 }
+{ "_id" : ObjectId("5e8a317b2c71b99c0f204a08"), "firstname" : "Domenico", "mother" : { "firstname" : "Domenico", "surname" : "Pellegrini", "age" : 52 }, "isEqual" : 0 }
+{ "_id" : ObjectId("5e8a317c2c71b99c0f204b04"), "firstname" : "Claudio", "mother" : { "firstname" : "Claudio", "surname" : "Costatini", "age" : 49 }, "isEqual" : 0 }
+{ "_id" : ObjectId("5e8a31892c71b99c0f205c10"), "firstname" : "Serena", "mother" : { "firstname" : "Serena", "surname" : "Serra", "age" : 32 }, "isEqual" : 0 }
+
 
 18. Utilizando aggregate framework, faça uma lista de nomes única de nomes. Faça isso usando apenas o primeiro nome 
+> db.italians.aggregate({ $project: { Nome: "$firstname", "_id" : 0} } )
 
+{ "Nome" : "Antonio" }
+{ "Nome" : "Roberto" }
+{ "Nome" : "Lucia" }
+{ "Nome" : "Emanuele" }
+{ "Nome" : "Dario" }
+{ "Nome" : "Alessandro" }
+{ "Nome" : "Roberta" }
+{ "Nome" : "Michela" }
+{ "Nome" : "Andrea" }
+{ "Nome" : "Valeira" }
+{ "Nome" : "Gianluca" }
+{ "Nome" : "Alessandra" }
+{ "Nome" : "Teresa" }
+{ "Nome" : "Fabio" }
+{ "Nome" : "Silvia" }
+{ "Nome" : "Alessandro" }
+{ "Nome" : "Giuseppe" }
+{ "Nome" : "Michele" }
+{ "Nome" : "Fabrizio" }
+{ "Nome" : "Laura" }
 
 19. Agora faça a mesma lista do item acima, considerando nome completo. 
 
+> db.italians.aggregate([{ $project: { Nome_Completo: { $concat: [ "$firstname", " ", "$surname" ] }, "_id" : 0} } ] )
+{ "Nome_Completo" : "Antonio Longo" }
+{ "Nome_Completo" : "Roberto De Angelis" }
+{ "Nome_Completo" : "Lucia Caputo" }
+{ "Nome_Completo" : "Emanuele Barone" }
+{ "Nome_Completo" : "Dario Costatini" }
+{ "Nome_Completo" : "Alessandro Montanari" }
+{ "Nome_Completo" : "Roberta Lombardi" }
+{ "Nome_Completo" : "Michela Farina" }
+{ "Nome_Completo" : "Andrea Carbone" }
+{ "Nome_Completo" : "Valeira Giuliani" }
+{ "Nome_Completo" : "Gianluca Marchetti" }
+{ "Nome_Completo" : "Alessandra Gatti" }
+{ "Nome_Completo" : "Teresa Costa" }
+{ "Nome_Completo" : "Fabio Galli" }
+{ "Nome_Completo" : "Silvia Gatti" }
+{ "Nome_Completo" : "Alessandro Milani" }
+{ "Nome_Completo" : "Giuseppe Sanna" }
+{ "Nome_Completo" : "Michele Damico" }
+{ "Nome_Completo" : "Fabrizio Morelli" }
+{ "Nome_Completo" : "Laura Barbieri" }
 
 20. Procure pessoas que gosta de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos. 
 
@@ -1340,3 +1397,14 @@ Exercício 3 - Stockbrokers
 8. Analise as ações. É uma bola de cristal na sua mão... Quais as três ações
 você investiria?
 9. Liste as ações agrupadas por setor
+
+
+Exercício3 –FraudenaEnron!
+
+1.Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são?
+
+
+2.Contabilize quantos e-mails tem a palavra “fraud”
+
+> db.eron.distinct({"message" : /fraud/})
+3
