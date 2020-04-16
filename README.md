@@ -2842,8 +2842,12 @@ Exercício3 –FraudenaEnron!
 
 1.Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são?
 
+> db.eron.distinct("sender").length
+
+2200
 
 2.Contabilize quantos e-mails tem a palavra “fraud”
 
-> db.eron.count({"message" : /fraud/})
-3
+> db.eron.count({"text" : /fraud/})
+
+23
