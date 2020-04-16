@@ -14,7 +14,7 @@ WriteResult({ "nInserted" : 1 })
 
 2. Faça uma contagem dos pets na coleção 
 
-db.pets.find().count();
+> db.pets.find().count();
 
 8
 
@@ -161,7 +161,7 @@ Nem cachorro nem gato
 
 9. Liste as pessoas que tem o mesmo nome que seu bichano (gatou ou cachorro) 
 
-db.italians.find({ $or: [{ $and: [ { dog: { $exists: true}}, { $where: "this.firstname== this.dog.name" } ] },{ $and: [ { cat: { $exists: true}}, { $where: "this.firstname== this.cat.name" } ] }]})
+> db.italians.find({ $or: [{ $and: [ { dog: { $exists: true}}, { $where: "this.firstname== this.dog.name" } ] },{ $and: [ { cat: { $exists: true}}, { $where: "this.firstname== this.cat.name" } ] }]})
 
 { "_id" : ObjectId("5e8a31712c71b99c0f203e63"), "firstname" : "Giusy", "surname" : "Gatti", "username" : "user147", "age" : 63, "email" : "Giusy.Gatti@yahoo.com", "bloodType" : "O+", "id_num" : "246444570530", "registerDate" : ISODate("2013-02-11T16:57:08.973Z"), "ticketNumber" : 9186, "jobs" : [ "Gestão de Cooperativas" ], "favFruits" : [ "Laranja", "Mamão" ], "movies" : [ { "title" : "Clube da Luta (1999)", "rating" : 1.53 }, { "title" : "Cidade de Deus (2002)", "rating" : 1.99 }, { "title" : "Gladiador (2000)", "rating" : 3.53 }, { "title" : "À Espera de um Milagre (1999)", "rating" : 1.03 } ], "cat" : { "name" : "Giusy", "age" : 2 } }
 { "_id" : ObjectId("5e8a31722c71b99c0f203eed"), "firstname" : "Patrizia", "surname" : "Cattaneo", "username" : "user285", "age" : 10, "email" : "Patrizia.Cattaneo@live.com", "bloodType" : "B-", "id_num" : "640180245356", "registerDate" : ISODate("2008-01-05T13:22:00.559Z"), "ticketNumber" : 7197, "jobs" : [ "Engenharia Mecânica", "Engenharia Agrícola" ], "favFruits" : [ "Maçã" ], "movies" : [ { "title" : "Vingadores: Ultimato (2019)", "rating" : 3.58 }, { "title" : "O Senhor dos Anéis: As Duas Torres (2002)", "rating" : 2.99 } ], "cat" : { "name" : "Claudia", "age" : 4 }, "dog" : { "name" : "Patrizia", "age" : 11 } }
@@ -451,6 +451,7 @@ db.italians.find({ $or: [{ $and: [ { dog: { $exists: true}}, { $where: "this.fir
 ...                 "age" : 2
 ...         }
 ... })
+
 WriteResult({ "nInserted" : 1 })
 
 14. Infelizmente o Leão comeu o italiano. Remova essa pessoa usando o Id. 
@@ -463,7 +464,7 @@ WriteResult({ "nRemoved" : 1 })
 
 Atualiza idade dos Italianos
 
-db.italians.update({}, {$inc :{"age" : 1}})
+> db.italians.update({}, {$inc :{"age" : 1}})
 
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
@@ -503,6 +504,7 @@ WriteResult({ "nRemoved" : 87 })
 
 
 18. Utilizando aggregate framework, faça uma lista de nomes única de nomes. Faça isso usando apenas o primeiro nome 
+
 > db.italians.aggregate({ $project: { Nome: "$firstname", "_id" : 0} } )
 
 { "Nome" : "Antonio" }
@@ -2722,11 +2724,13 @@ Exercício 3 - Stockbrokers
 }
 
 4. Qual foi o setor mais rentável?
+
 > db.stocks.aggregate([ {$group: {_id: "$Sector", Média: {$avg: "$Profit Margin"}}}, {$sort: {Média: -1}}, {$limit: 1} ])
 
 { "_id" : "Financial", "Média" : 0.16467639311043566 }
 
 5. Ordene as ações pelo profit e usando um cursor, liste as ações.
+
 > var cursor = db.stocks.find({"Profit Margin": { $exists: 1}}, {"Ticker" : 1, "Profit Margin" : 1}).sort( { "Profit Margin" : -1 } )
 
 > cursor
@@ -2785,6 +2789,7 @@ Exercício 3 - Stockbrokers
 você investiria?
 
 > db.stocks.find({"Profit": { $exists: 1}, "Analyst Recom": {$exists: 1}}, {"Ticker" : 1, "Profit" : 1, "Analyst Recom" : 1}).sort( { "Analyst Recom" : -1, "Profit": -1 } ).limit(3).pretty()
+
 {
         "_id" : ObjectId("5285380dbb1177ca391c2f53"),
         "Ticker" : "TNH",
