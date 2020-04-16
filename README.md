@@ -4,33 +4,23 @@ Exercício 1- Aquecendo com os pets
 
 1.Adicione outro Peixe e um Hamster com nome Frodo
 
-Comando
 > db.pets.insert({name:"Frodo",species:"Peixe"})
 
-Resposta
 WriteResult({ "nInserted" : 1 })
 
-Comando
 > db.pets.insert({name:"Frodo",species:"Hamster"})
 
-Resposta
 WriteResult({ "nInserted" : 1 })
-
 
 2. Faça uma contagem dos pets na coleção 
 
-Comando
 db.pets.find().count();
 
-Resposta
 8
 
 3. Retorne apenas um elemento o método prático possível 
 
-Comando
 > db.pets.findOne()
-
-Resposta
 
 {
         "_id" : ObjectId("5e8a1b135f61e90828391922"),
@@ -40,81 +30,58 @@ Resposta
 
 4. Identifique o ID para o Gato Kilha. 
 
-Comando
 > db.pets.find({"name" : "Kilha"}, {"_id":1});
-
-Resposta
 
 { "_id" : ObjectId("5e8a1b235f61e90828391924") }
 
 5. Faça uma busca pelo ID e traga o Hamster Mike 
 
-Comando
 > db.pets.find({"name" : "Mike", species:"Hamster"}, {"_id":1});
-
-Resposta
 
 { "_id" : ObjectId("5e8a1b135f61e90828391922") }
 
-Comando
 > db.pets.find({"_id" : ObjectId("5e8a1b135f61e90828391922")});
-
-Resposta
 
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 
-
 6. Use o find para trazer todos os Hamster
 
-Comando
 > db.pets.find({species:"Hamster"});
-
-Resposta
 
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a1b7d5f61e90828391929"), "name" : "Frodo", "species" : "Hamster" }
 
 7. Use o find para listar todos os pets com nome Mike
 
-Comando
 > db.pets.find({"name" : "Mike"});
-
-Resposta
 
 { "_id" : ObjectId("5e8a1b135f61e90828391922"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a1b2d5f61e90828391925"), "name" : "Mike", "species" : "Cachorro" }
 
 8. Liste apenas o documento que é um Cachorro chamado Mike 
 
-Comando
 > db.pets.find({"name" : "Mike", species:"Cachorro"});
 
-Resposta
-
 { "_id" : ObjectId("5e8a1b2d5f61e90828391925"), "name" : "Mike", "species" : "Cachorro" }
-
 
 Exercício 2 – Mama mia! 
 
 1. Liste/Conte todas as pessoas que tem exatamente 99 anos. Você pode usar um count para indicar a quantidade. 
-Comando
+
 > db.italians.find({"age" : 99}).count()
 
-Resposta
 0
 
 2. Identifique quantas pessoas são elegíveis atendimento prioritário (pessoas com mais de 65 anos) 
-Comando
+
 > db.italians.find({"age" : {"$gt":65}}).count()
 
-Resposta
 1685
 
 3. Identifique todos os jovens (pessoas entre 12 a 18 anos). 
-Comando
+
 > db.italians.find({"age" : {"$gte" : 12, "$lte" : 18}})
 
-Resposta
 { "_id" : ObjectId("5e8a31712c71b99c0f203e51"), "firstname" : "Giusy", "surname" : "Moretti", "username" : "user129", "age" : 17, "email" : "Giusy.Moretti@gmail.com", "bloodType" : "AB+", "id_num" : "117846875072", "registerDate" : ISODate("2007-03-21T10:31:37.348Z"), "ticketNumber" : 4160, "jobs" : [ "Música", "Oceanografia" ], "favFruits" : [ "Pêssego" ], "movies" : [ { "title" : "A Felicidade Não se Compra (1946)", "rating" : 2.43 } ], "cat" : { "name" : "Laura", "age" : 16 } }
 { "_id" : ObjectId("5e8a31712c71b99c0f203e53"), "firstname" : "Veronica", "surname" : "Barone", "username" : "user131", "age" : 12, "email" : "Veronica.Barone@uol.com.br", "bloodType" : "A+", "id_num" : "768470232510", "registerDate" : ISODate("2012-11-10T00:00:58.587Z"), "ticketNumber" : 657, "jobs" : [ "Química", "Rádio, TV e Internet" ], "favFruits" : [ "Banana", "Goiaba" ], "movies" : [ { "title" : "A Vida é Bela (1997)", "rating" : 2.02 }, { "title" : "Forrest Gump: O Contador de Histórias (1994)", "rating" : 2.37 }, { "title" : "À Espera de um Milagre (1999)", "rating" : 0.93 } ], "cat" : { "name" : "Claudia", "age" : 6 } }
 { "_id" : ObjectId("5e8a31712c71b99c0f203e56"), "firstname" : "Elisabetta", "surname" : "Palumbo", "username" : "user134", "age" : 17, "email" : "Elisabetta.Palumbo@gmail.com", "bloodType" : "B-", "id_num" : "561202382714", "registerDate" : ISODate("2007-05-26T21:12:45.947Z"), "ticketNumber" : 2260, "jobs" : [ "Engenharia Florestal" ], "favFruits" : [ "Pêssego", "Melancia", "Mamão" ], "movies" : [ { "title" : "Seven: Os Sete Crimes Capitais (1995)", "rating" : 1.06 } ] }
@@ -141,22 +108,27 @@ Type "it" for more
 
 Gatos
 > db.italians.find({cat: {$exists: true}}).count()
+
 5976
 
 Cachorros
 > db.italians.find({dog: {$exists: true}}).count()
+
 3949
 
 Nem cachorro nem gato
 > db.italians.find({$and:[{dog: {$exists: false}},{cat: {$exists: false}}]}).count()
+
 2409
 
 5. Liste/Conte todas as pessoas acima de 60 anos que tenham gato 
 > db.italians.find({$and:[{cat: {$exists: true}},{"age" : {"$gt":65}}]}).count()
+
 1018
 
 6. Liste/Conte todos os jovens com cachorro 
 > db.italians.find({$and:[{dog: {$exists: true}},{"age" : {"$gte" : 12, "$lte" : 18}}]}).count()
+
 345
 
 7. Utilizando o $where, liste todas as pessoas que tem gato e cachorro 
@@ -165,6 +137,7 @@ Nem cachorro nem gato
 8. Liste todas as pessoas mais novas que seus respectivos gatos. 
 
 > db.italians.find({ $and: [ { cat: { $exists: true }}, { $where: "this.age < this.cat.age" } ] },{"firstname":1,"age": 1, "cat.age":1})
+
 { "_id" : ObjectId("5e8a31712c71b99c0f203e3c"), "firstname" : "Andrea", "age" : 5, "cat" : { "age" : 7 } }
 { "_id" : ObjectId("5e8a31712c71b99c0f203e3f"), "firstname" : "Alessandra", "age" : 1, "cat" : { "age" : 7 } }
 { "_id" : ObjectId("5e8a31712c71b99c0f203e6d"), "firstname" : "Patrizia", "age" : 3, "cat" : { "age" : 10 } }
@@ -265,7 +238,6 @@ db.italians.find({ $or: [{ $and: [ { dog: { $exists: true}}, { $where: "this.fir
 12. Quais são as 5 pessoas mais velhas com sobrenome Rossi? 
 
 > db.italians.find({"surname": "Rossi"}).pretty().limit(5).sort({age : -1})
-
 
 {
         "_id" : ObjectId("5e8a31892c71b99c0f205c31"),
@@ -484,25 +456,33 @@ WriteResult({ "nInserted" : 1 })
 14. Infelizmente o Leão comeu o italiano. Remova essa pessoa usando o Id. 
 
 > db.italians.remove({"_id": ObjectId("5e9501fbe0d1aa424e9f53df")});
+
 WriteResult({ "nRemoved" : 1 })
 
 15. Passou um ano. Atualize a idade de todos os italianos e dos bichanos em 1. 
 
 Atualiza idade dos Italianos
+
 db.italians.update({}, {$inc :{"age" : 1}})
+
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 Atualiza idade dos gatos
+
 > db.italians.update({cat: { $exists: true}}, {$inc :{"cat.age" : 1}})
+
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 Atualiza idade dos cachorros
+
 > db.italians.update({dog: { $exists: true}}, {$inc :{"dog.age" : 1}})
+
 WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 16. O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos. 
 
 > db.italians.remove({cat: { $exists: true}, "age" : 66});
+
 WriteResult({ "nRemoved" : 87 })
 
 17. Utilizando o framework agregate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro. 
@@ -513,7 +493,6 @@ WriteResult({ "nRemoved" : 87 })
 ... {$project: {firstname: 1, mother: 1, isEqual: { $cmp: ["$firstname","$mother.firstname"]}}},
 ... {$match: {isEqual : 0}}
 ... ])
-
 
 { "_id" : ObjectId("5e8a31722c71b99c0f203f6e"), "firstname" : "Daniele", "mother" : { "firstname" : "Daniele", "surname" : "Coppola", "age" : 104 }, "isEqual" : 0 }
 { "_id" : ObjectId("5e8a31762c71b99c0f20439c"), "firstname" : "Dario", "mother" : { "firstname" : "Dario", "surname" : "Amato", "age" : 98 }, "isEqual" : 0 }
@@ -550,6 +529,7 @@ WriteResult({ "nRemoved" : 87 })
 19. Agora faça a mesma lista do item acima, considerando nome completo. 
 
 > db.italians.aggregate([{ $project: { Nome_Completo: { $concat: [ "$firstname", " ", "$surname" ] }, "_id" : 0} } ] )
+
 { "Nome_Completo" : "Antonio Longo" }
 { "Nome_Completo" : "Roberto De Angelis" }
 { "Nome_Completo" : "Lucia Caputo" }
@@ -574,6 +554,7 @@ WriteResult({ "nRemoved" : 87 })
 20. Procure pessoas que gosta de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos. 
 
 > db.italians.find({$and: [{$or: [{"favFruits" : "Banana"}, {"favFruits" : "Maçã"}]}, {$or: [{dog: {$exists: true}}, {cat:{ $exists: true}} ]}, {"age" : {"$gt" : 20, "$lt" : 60}}]}).pretty()
+
 {
         "_id" : ObjectId("5e8a31712c71b99c0f203e40"),
         "firstname" : "Teresa",
